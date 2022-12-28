@@ -9,7 +9,8 @@ const AddTask = () => {
     
     const navigate = useNavigate();
 
-    const handleAddDoctor = data => {
+    const handleAddTask = data => {
+        //console.log('DDDDDDDDDDDDDDDDDDDDDDDDd', data);
         const image = data.image[0];
         const formData = new FormData();
         formData.append('image', image);
@@ -24,13 +25,12 @@ const AddTask = () => {
                 console.log(imgData.data.url);
                 const doctor = {
                     name: data.name, 
-                    email: data.email,
-                    specialty: data.specialty,
+                    TaskDetails: data.text,
                     image: imgData.data.url
                 }
 
                 // save doctor information to the database
-                fetch('https://doctors-portal-server-sojib-sudo.vercel.app/doctors', {
+                fetch('http://localhost:5000/tasks', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json', 
@@ -42,7 +42,7 @@ const AddTask = () => {
                 .then(result =>{
                     console.log(result);
                     toast.success(`${data.name} is added successfully`);
-                    navigate('/dashboard/managedoctors')
+                    navigate('/mytasks')
                 })
             }
         })
@@ -52,7 +52,7 @@ const AddTask = () => {
         <div className='mt-20 flex justify-center'>
              <div className=' p-10'>
             <h2 className="text-4xl">Add A Task</h2>
-            <form onSubmit={handleSubmit(handleAddDoctor)}>
+            <form onSubmit={handleSubmit(handleAddTask)}>
                 <div className="form-control w-full ">
                     <label className="label"> <span className="label-text">Task name</span></label>
                     <input type="text" {...register("name", {
