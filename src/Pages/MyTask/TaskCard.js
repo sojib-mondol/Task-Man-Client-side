@@ -1,14 +1,16 @@
 import React from 'react';
 
-const TaskCard = () => {
+const TaskCard = ({task}) => {
+    const {name, TaskDetails, _id, image} = task;
+    console.log("TasK", task);
     return (
         <div>
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
-                <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains" />
+                <img class="w-full" src={image} alt="Sunset in the mountains" />
                 <div class="px-6 py-4">
-                    <div class="font-bold text-xl mb-2">The Coldest Sunset</div>
+                    <div class="font-bold text-xl mb-2">{name}</div>
                     <p class="text-gray-700 text-base">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus quia, nulla! Maiores et perferendis eaque, exercitationem praesentium nihil.
+                    {TaskDetails}
                     </p>
                 </div>
                 <div class="px-6 py-4 grid gap-2 grid-flow-col">
