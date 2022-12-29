@@ -1,8 +1,14 @@
 import React from 'react';
+import ConfirmationModal from './ConfirmationModal';
 
-const TaskCard = ({task}) => {
+const TaskCard = ({task, setDeleting, deleting, handleDelete}) => {
     const {name, TaskDetails, _id, image} = task;
     console.log("TasK", task);
+    const closeModal = () => {
+        setDeleting(null);
+    }
+
+    
     return (
         <div>
             <div class="max-w-sm rounded overflow-hidden shadow-lg">
@@ -15,11 +21,22 @@ const TaskCard = ({task}) => {
                 </div>
                 <div class="px-6 py-4 grid gap-2 grid-flow-col">
                     <button className='bg-indigo-600 hover:bg-indigo-400 mt-2 text-white font-bold py-2 px-2 rounded'>UPDATE</button>
-                    <button className='bg-indigo-600 hover:bg-indigo-400 mt-2 text-white font-bold py-2 px-2 rounded'>DELETE</button>
-                    <button className='bg-indigo-600 hover:bg-indigo-400 mt-2 text-white font-bold py-2 px-2 rounded'>COMPLEATE</button>
+                    <button onClick={() => setDeleting(task)} htmlFor="confirmation-modal" className='bg-indigo-600 hover:bg-indigo-400 mt-2 text-white font-bold py-2 px-2 rounded'>DELETE</button>
+                    <button  className='bg-indigo-600 hover:bg-indigo-400 mt-2 text-white font-bold py-2 px-2 rounded'>COMPLEATE</button>
                 </div>
                 
             </div>
+            {
+                    deleting && <ConfirmationModal
+                        title={` Are you sure you want to delete?`}
+                        message={`If you delete ${deleting.name}. It cannot be undone.`}
+                        successAction = {handleDelete}
+                        successButtonName="Delete"
+                        modalData = {deleting}
+                        closeModal = {closeModal}
+                    >
+                    </ConfirmationModal>
+                }
         </div>
     );
 };
